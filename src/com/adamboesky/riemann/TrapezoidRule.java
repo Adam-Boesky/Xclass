@@ -1,10 +1,10 @@
-package com.adamboesky.reimann;
+package com.adamboesky.riemann;
 
-        import org.dalton.polyfun.Polynomial;
-        import org.opensourcephysics.display.Trail;
-        import org.opensourcephysics.frames.PlotFrame;
+import org.dalton.polyfun.Polynomial;
+import org.opensourcephysics.display.Trail;
+import org.opensourcephysics.frames.PlotFrame;
 
-        import java.awt.*;
+import java.awt.*;
 
 public class TrapezoidRule extends AbstractRiemann {
 

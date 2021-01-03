@@ -1,6 +1,6 @@
-package com.adamboesky.reimann.circleMethods;
+package com.adamboesky.riemann.circleMethods;
 
-import com.adamboesky.reimann.AbstractRiemann;
+import com.adamboesky.riemann.AbstractRiemann;
 import org.dalton.polyfun.Polynomial;
 import org.opensourcephysics.display.DrawableShape;
 import org.opensourcephysics.frames.PlotFrame;

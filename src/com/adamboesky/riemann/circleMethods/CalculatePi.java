@@ -1,4 +1,4 @@
-package com.adamboesky.reimann.circleMethods;
+package com.adamboesky.riemann.circleMethods;
 
 public class CalculatePi {
     /**

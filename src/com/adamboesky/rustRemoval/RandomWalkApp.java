@@ -1,4 +1,4 @@
-package com.adamboesky;
+package com.adamboesky.rustRemoval;
 
 import org.opensourcephysics.controls.AbstractSimulation;
 import org.opensourcephysics.controls.SimulationControl;

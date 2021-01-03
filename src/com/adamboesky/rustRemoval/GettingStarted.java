@@ -1,3 +1,5 @@
+package com.adamboesky.rustRemoval;
+
 import org.dalton.polyfun.Polynomial;
 
 import org.opensourcephysics.display.Trail;
@@ -6,7 +8,7 @@ import org.opensourcephysics.frames.PlotFrame;
 import java.awt.Color;
 
 /**
- * GettingStarted class to show off Polynomials, Open Source Physics and JUnit test.
+ * com.adamboesky.rustRemoval.GettingStarted class to show off Polynomials, Open Source Physics and JUnit test.
  */
 public class GettingStarted {
     public static void main(String[] args) {

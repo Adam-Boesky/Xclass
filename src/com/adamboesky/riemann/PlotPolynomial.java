@@ -1,6 +1,6 @@
-package com.adamboesky.reimann;
+package com.adamboesky.riemann;
 
-import com.adamboesky.reimann.circleMethods.CircleRightHandRule;
+import com.adamboesky.riemann.circleMethods.CircleRightHandRule;
 import org.dalton.polyfun.Polynomial;
 import org.opensourcephysics.display.Trail;
 import org.opensourcephysics.frames.PlotFrame;
@@ -31,7 +31,6 @@ public class PlotPolynomial {
                                 int xmax, int ymin, int ymax, Polynomial poly, int subintervals, int ruleType,
                                 boolean iscircle){
 
-
         // Assigns the rule that will be used:
         AbstractRiemann rule;
         if(ruleType == 0){
@@ -49,7 +48,6 @@ public class PlotPolynomial {
         else {
             rule = new CircleRightHandRule();
         }
-
 
         // Plots the polynomial:
         // Spacers to make the plots look pretty
@@ -80,10 +78,8 @@ public class PlotPolynomial {
         }
         plot.addDrawable(function);
 
-
         // Plots the Riemann sum:
         rule.rsPlot​(plot, poly, 3, xmin, xmax, subintervals);
-
 
         plot.setVisible(true);
     }

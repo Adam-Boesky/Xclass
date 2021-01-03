@@ -6,48 +6,49 @@ import org.opensourcephysics.display.Circle;
 import org.opensourcephysics.display.Trail;
 import org.opensourcephysics.frames.PlotFrame;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class ProjectileApp extends AbstractSimulation {
+public class ProjectileAppFreeFall extends AbstractSimulation {
+
     // Declare the plot frames and trails that will be plotting the data of the free fall particles.
-    PlotFrame plotFrameDrop = new PlotFrame("X", "Y", "Falling Ball Simulation");
-    PlotFrame pVT = new PlotFrame("Time (Seconds)", "Distance From Ground (Meters)",
+    private PlotFrame plotFrameDrop = new PlotFrame("X", "Y", "Falling Ball Simulation");
+    private PlotFrame pVT = new PlotFrame("Time (Seconds)", "Distance From Ground (Meters)",
             "Position Versus Time");
-    Trail trailPVT1 = new Trail();
-    Trail trailPVT2 = new Trail();
-    Trail trailPVT3 = new Trail();
-    PlotFrame vVT = new PlotFrame("Time (Seconds)", "Velocity (Meters/Second)",
+    private Trail trailPVT1 = new Trail();
+    private Trail trailPVT2 = new Trail();
+    private Trail trailPVT3 = new Trail();
+    private PlotFrame vVT = new PlotFrame("Time (Seconds)", "Velocity (Meters/Second)",
             "Velocity Versus Time");
-    Trail trailVVT1 = new Trail();
-    Trail trailVVT2 = new Trail();
-    Trail trailVVT3 = new Trail();
-    PlotFrame aVT = new PlotFrame("Time (Seconds)", "Acceleration (Meters/Second^2)",
+    private Trail trailVVT1 = new Trail();
+    private Trail trailVVT2 = new Trail();
+    private Trail trailVVT3 = new Trail();
+    private PlotFrame aVT = new PlotFrame("Time (Seconds)", "Acceleration (Meters/Second^2)",
             "Acceleration Versus Time");
-    Trail trailAVT1 = new Trail();
-    Trail trailAVT2 = new Trail();
-    Trail trailAVT3 = new Trail();
+    private Trail trailAVT1 = new Trail();
+    private Trail trailAVT2 = new Trail();
+    private Trail trailAVT3 = new Trail();
 
     // Declare the particles and the circles for each particle for the free fall simulation.
-    Particle particle1 = new Particle(0, 100, 0, 0, 0, 0, 10);
-    Circle pCircle1 = new Circle();
+    private Particle particle1 = new Particle(0, 100, 0, 0, 0, 0, 10, false);
+    private Circle pCircle1 = new Circle();
 
-    Particle particle2 = new Particle(-10, 100, 0, 0, 0, 0, 10);
-    Circle pCircle2 = new Circle();
+    private Particle particle2 = new Particle(-10, 100, 0, 0, 0, 0, 10, false);
+    private Circle pCircle2 = new Circle();
 
-    Particle particle3 = new Particle(10, 100, 0, 0, 0, 0, 10);
-    Circle pCircle3 = new Circle();
+    private Particle particle3 = new Particle(10, 100, 0, 0, 0, 0, 10, false);
+    private Circle pCircle3 = new Circle();
 
     // Set time equal to 0.
-    double totalTime = 0;
+    private double totalTime = 0;
 
     // Declare the Betas whose values will be established by the user.
-    double betaGreen = 0;
-    double betaBlue = 0;
+    private double betaGreen = 0;
+    private double betaBlue = 0;
 
     // Declare the mass of the earth and g equal to 0.
-    double massEarth = 5.972;
-    double g = 0;
-    double forceGravity = 0;
+    private double massEarth = 5.972;
+    private double g = 0;
 
     /**
      * Technically optional, but the simulation won't work without it.
@@ -55,15 +56,16 @@ public class ProjectileApp extends AbstractSimulation {
      */
     @Override
     public void reset() {
+
         // Retake the beta values for the particles.
         control.setValue("Beta value for green particle", betaGreen);
         control.setValue("Beta value for blue particle", betaBlue);
         control.setValue("Mass of the earth in terms of 10^24 kg(the mass of our earth would be 5.972", massEarth);
 
         // Reset the particle values.
-        particle1 = new Particle(0, 100, 0, 0, 0, 0, 10);
-        particle2 = new Particle(-10, 100, 0, 0, 0, 0, 1000000);
-        particle3 = new Particle(10, 100, 0, 0, 0, 0, 10);
+        particle1 = new Particle(0, 100, 0, 0, 0, 0, 10, false);
+        particle2 = new Particle(-10, 100, 0, 0, 0, 0, 10, false);
+        particle3 = new Particle(10, 100, 0, 0, 0, 0, 10, false);
 
         // Remove trails to the velocity versus time graph.
         vVT.removeDrawable(trailVVT1);
@@ -140,23 +142,31 @@ public class ProjectileApp extends AbstractSimulation {
 
         // Configure plot frame
         plotFrameDrop.setPreferredMinMax(-25, 25, -200, 200); // Scale of graph.
-        plotFrameDrop.setDefaultCloseOperation(3); // Make it so x'ing out of the graph stops the program.
+        plotFrameDrop.setLocation(0,0); // Set where the plot frame will appear on the screen.
+        plotFrameDrop.setSize(500, 1000);
+        plotFrameDrop.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // Make it so x'ing out of the graph stops the program.
         plotFrameDrop.setVisible(true); // Required to show plot frame.
 
         // Set preferred min max for the plots
         pVT.setPreferredMinMax(0, 5, 0, 100);
+        pVT.setLocation(plotFrameDrop.getX() + plotFrameDrop.getWidth(), plotFrameDrop.getY());
         vVT.setPreferredMinMax(0, 5, -50, 0);
-        aVT.setPreferredMinMax(0, 5, -10, 0);
+        vVT.setLocation(pVT.getX() + pVT.getWidth(), pVT.getY());
+        aVT.setPreferredMinMax(0, 5, -11, 0);
+        aVT.setLocation(plotFrameDrop.getX() + plotFrameDrop.getWidth(), pVT.getY() + pVT.getHeight());
 
         // Get the values from the control panel.
         betaGreen = control.getDouble("Beta value for green particle");
         betaBlue = control.getDouble("Beta value for blue particle");
         massEarth = control.getDouble("Mass of the earth in terms of 10^24 kg(the mass of our earth would be 5.972");
 
-        forceGravity = (((6.67 * Math.pow(10, -11) * (massEarth * Math.pow(10, 24)) * particle1.getMass()) /
-                (6371 * 6371)));
+        double forceGravity =
+                (
+                        (
+                                (6.67 * Math.pow(10, -11) * (massEarth * Math.pow(10, 24)) * particle1.getMass()) /
+                (6371.0 * 1000 * 6371.0 * 1000))
+                );
         g = forceGravity / particle1.getMass();
-        System.out.println(g);
     }
 
     /**
@@ -177,9 +187,9 @@ public class ProjectileApp extends AbstractSimulation {
         pCircle3.setY(particle3.getY());
 
         // Update all of the particle attributes.
-        particle1.step(.1, 9.8);
-        particle2.stepResistanceProp(.1, 10, betaGreen, 9.8);
-        particle3.stepResistancePropSquared(.1, 10, betaBlue, 9.8);
+        particle1.step(.1, g);
+        particle2.stepResistanceProp(.1, 10, betaGreen, g);
+        particle3.stepResistancePropSquared(.1, 10, betaBlue, g);
 
         // Add data points for particle 1.
         trailPVT1.addPoint(totalTime, particle1.getY());
@@ -217,9 +227,9 @@ public class ProjectileApp extends AbstractSimulation {
 
     /**
      * Required main method, runs the simulation.
-     * @param args
+     * @param args - required argument component
      */
     public static void main(String[] args) {
-        SimulationControl.createApp(new ProjectileApp());
+        SimulationControl.createApp(new ProjectileAppFreeFall());
     }
 }

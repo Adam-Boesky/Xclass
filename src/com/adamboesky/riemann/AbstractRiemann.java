@@ -1,4 +1,4 @@
-package com.adamboesky.reimann;
+package com.adamboesky.riemann;
 import org.dalton.polyfun.Polynomial;
 import org.opensourcephysics.display.Trail;
 import org.opensourcephysics.frames.PlotFrame;
@@ -113,45 +113,10 @@ abstract public class AbstractRiemann {
 
 
     /**
-     * This method finds what the integral converges on for any given polynomial and interval. It does so by doubling
-     * the number of subintervals until the percent difference between the sum and the sum with the next doubling of
-     * subintervals is less than 1%.
-     *
-     *
-     * @param poly - the polynomial that the approximate integral is calculated for
-     * @param sLeft - the left hand endpoint of the interval
-     * @param sRight - the right hand endpoint of the interval
-     * @return The approximate integral from the interval [sLeft, sRight].
-     */
-    public double approxIntegralPD(Polynomial poly, double sLeft, double sRight) {
-        int subints = 100;
-        double approxIntegral = 0;
-
-
-        // Increase subintervals by 100 until the riemann sum is within one percent of the next increase of 100
-        // subintervals
-        for (int i = 0; i < 1; i++) {
-            double sum = rs(poly, sLeft, sRight, subints);
-            double increasedSum = rs(poly, sLeft, sRight, subints * 2);
-            // Check if the percent difference between the rs and the rs with 100 more subintervals differs by more than
-            // 1%. If not, use that value as the integral that the rs converges on.
-            if((Math.abs(increasedSum - sum)) / ((increasedSum + sum) / increasedSum) > .01) {
-                i = 0;
-                subints = subints + 100;
-            }
-            else{
-                approxIntegral = sum;
-                break;
-            }
-        }
-        return (approxIntegral);
-    }
-
-
-    /**
-     * This method finds what the integral converges on for any given polynomial and interval. It does so by doubling
-     * the number of subintervals until the difference between the sum and the sum with the next doubling of
-     * subintervals is less than 1% of the length of the interval.
+     * This method finds what the integral converges on for any given polynomial and interval. It does so by quadrupling
+     * the number of subintervals until the difference between the sum and the sum with the next quadruple of
+     * subintervals is less than 1% of the length of the interval. It double checks by checking the quadrupled sum with
+     * the quadrupled sum quadrupled again to ensure that there will be no cases that don't work.
      *
      *
      * @param poly - the polynomial that the approximate integral is calculated for
@@ -164,16 +129,16 @@ abstract public class AbstractRiemann {
         double approxIntegral = 0;
 
 
-        // Increase subintervals by 100 until the riemann sum is within one percent of the next increase of 100
+        // Multiply the subintervals by 4 until the riemann sum is within one percent of the next increase of 100
         // subintervals
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
             double sum = rs(poly, sLeft, sRight, subints);
-            double increasedSum = rs(poly, sLeft, sRight, subints * 2);
-            // Check if the percent difference between the rs and the rs with 100 more subintervals differs by more than
-            // 1%. If not, use that value as the integral that the rs converges on.
+            double increasedSum = rs(poly, sLeft, sRight, subints * 4);
+            // Check if the percent difference between the rs and the rs with quadruple subintervals differ by more than
+            // 1% of the interval length. If not, use that value as the integral that the rs converges on.
             if(Math.abs(increasedSum - sum) > (.01 * (sRight - sLeft))) {
                 i = 0;
-                subints = subints + 100;
+                subints = subints * 4;
             }
             else{
                 approxIntegral = sum;

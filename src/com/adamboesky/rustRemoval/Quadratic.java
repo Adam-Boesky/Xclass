@@ -1,4 +1,4 @@
-package com.adamboesky;
+package com.adamboesky.rustRemoval;
 
 public class Quadratic {
     private double a;

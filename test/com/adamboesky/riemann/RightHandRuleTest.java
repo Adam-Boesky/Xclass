@@ -1,3 +1,5 @@
+package com.adamboesky.riemann;
+
 import com.adamboesky.riemann.RightHandRule;
 import org.dalton.polyfun.Polynomial;
 import org.junit.Test;

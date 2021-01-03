@@ -1,4 +1,4 @@
-package com.adamboesky.reimann;
+package com.adamboesky.riemann;
 
 import org.dalton.polyfun.Polynomial;
 import org.opensourcephysics.display.DrawableShape;

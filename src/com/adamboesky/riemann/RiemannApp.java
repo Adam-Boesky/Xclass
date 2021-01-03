@@ -1,7 +1,7 @@
-package com.adamboesky.reimann;
+package com.adamboesky.riemann;
 
-import com.adamboesky.reimann.circleMethods.CalculatePi;
-import com.adamboesky.reimann.circleMethods.CircleRightHandRule;
+import com.adamboesky.riemann.circleMethods.CalculatePi;
+import com.adamboesky.riemann.circleMethods.CircleRightHandRule;
 import org.dalton.polyfun.Polynomial;
 import org.opensourcephysics.display.Trail;
 import org.opensourcephysics.frames.PlotFrame;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 // actual area of the slice.
 
 
-public class ReimannApp {
+public class RiemannApp {
     public static void main(String[] args) {
 
         // Declare the polynomial of the circle:
@@ -112,7 +112,6 @@ public class ReimannApp {
         double simpsonSum = simpsonRule.rs(poly, minX, maxX, subintervals);
         double circleSum = circleRightHandRule.rs(polyCircle, -2, 2, 100000);
 
-
         // Plot the accumulation function:
         // A spacer to make the plot look pretty
         int xSpacer = Math.abs((maxX - minX)/16);
@@ -149,32 +148,24 @@ public class ReimannApp {
         accPlot.setVisible(true);
 
 
-        // Print the Reimann sum for all of the rules:
+                // Print the Reimann sum for all of the rules:
         System.out.println("\n\n\n\nPolynomial:\n" + poly);
         System.out.println("------------------");
         System.out.println("Right hand rule:" +
                 "\n       Area using your subintervals: " + rightHandSum +
-                "\n       Approximate integral based off of percent difference: " +
-                rightHandRule.approxIntegralPD(poly, minX, maxX) +
-                "\n       Approximate integral based off of the interval size: " +
+                "\n       Approximate integral based off of the interval size (Dr. Gomprecht's method): " +
                 rightHandRule.approxIntegralIntervalSize(poly, minX, maxX));
         System.out.println("Left hand rule:" +
                 "\n       Area using your subintervals: " + leftHandSum +
-                "\n       Approximate integral based off of percent difference: " +
-                leftHandRule.approxIntegralPD(poly, minX, maxX) +
-                "\n       Approximate integral based off of the interval size: " +
+                "\n       Approximate integral based off of the interval size (Dr. Gomprecht's method): " +
                 leftHandRule.approxIntegralIntervalSize(poly, minX, maxX));
         System.out.println("Trapezoid rule:" +
                 "\n       Area using your subintervals: " + trapezoidSum +
-                "\n       Approximate integral based off of percent difference: " +
-                trapezoidRule.approxIntegralPD(poly, minX, maxX) +
-                "\n       Approximate integral based off of the interval size: " +
+                "\n       Approximate integral based off of the interval size (Dr. Gomprecht's method): " +
                 trapezoidRule.approxIntegralIntervalSize(poly, minX, maxX));
         System.out.println("Simpson rule:" +
                 "\n       Area using your subintervals: " + simpsonSum +
-                "\n       Approximate integral based off of percent difference: " +
-                simpsonRule.approxIntegralPD(poly, minX, maxX) +
-                "\n       Approximate integral based off of the interval size: " +
+                "\n       Approximate integral based off of the interval size (Dr.Gomprecht's method): " +
                 simpsonRule.approxIntegralIntervalSize(poly, minX, maxX));
         System.out.println("------------------");
         System.out.println("Semi-circle with right hand est. area: " + circleSum);

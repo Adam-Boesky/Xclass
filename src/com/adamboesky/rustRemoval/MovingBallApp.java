@@ -1,10 +1,12 @@
+package com.adamboesky.rustRemoval;
+
 import org.opensourcephysics.controls.AbstractSimulation;
 import org.opensourcephysics.controls.SimulationControl;
 import org.opensourcephysics.display.Circle;
 import org.opensourcephysics.frames.PlotFrame;
 
 /***
- * MovingBallApp is an extension of AbstractSimulation (an abstract class).
+ * com.adamboesky.rustRemoval.MovingBallApp is an extension of AbstractSimulation (an abstract class).
  *
  * An abstract class is a class that almost works except that the author intentionally left some methods empty. It is up
  * to the programmer who uses it to complete those empty methods for the class to fully work.
@@ -62,7 +64,7 @@ public class MovingBallApp extends AbstractSimulation {
      */
     public void doStep() {
         // Change y. (It will re-draw itself.)
-        circle.setY(circle.getY() - 1);
+            circle.setY(circle.getY() - 1);
         circle.setX(circle.getX() + 1);
 
         totalTime++;
